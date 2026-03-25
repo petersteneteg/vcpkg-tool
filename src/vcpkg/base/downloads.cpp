@@ -22,6 +22,34 @@ using namespace vcpkg;
 
 namespace
 {
+    Optional<long> get_curl_env_long(StringLiteral env_var_name)
+    {
+        auto val = get_environment_variable(env_var_name);
+        if (!val)
+        {
+            return nullopt;
+        }
+
+        long parsed = 0;
+        try
+        {
+            parsed = std::stol(*val);
+        }
+        catch (const std::exception&)
+        {
+            Checks::msg_exit_with_message(
+                VCPKG_LINE_INFO, msgEnvVarMustBeNonNegativeInteger, msg::env_var = env_var_name);
+        }
+
+        if (parsed < 0)
+        {
+            Checks::msg_exit_with_message(
+                VCPKG_LINE_INFO, msgEnvVarMustBeNonNegativeInteger, msg::env_var = env_var_name);
+        }
+
+        return parsed;
+    }
+
     void set_common_curl_easy_options(CurlEasyHandle& easy_handle, StringView url, const CurlHeaders& request_headers)
     {
         auto* curl = easy_handle.get();
@@ -36,6 +64,20 @@ namespace
         // don't send headers to proxy CONNECT ; this intentionally fails on older versions of libcurl
         vcpkg_curl_easy_setopt(
             curl, static_cast<CURLoption>(229) /* CURLOPT_HEADEROPT */, (1L << 0) /* CURLHEADER_SEPARATE */);
+
+        static const Optional<long> timeout =
+            get_curl_env_long(EnvironmentVariableVcpkgCurlOptTimeout);
+        if (auto* t = timeout.get())
+        {
+            vcpkg_curl_easy_setopt(curl, CURLOPT_TIMEOUT, *t);
+        }
+
+        static const Optional<long> connect_timeout =
+            get_curl_env_long(EnvironmentVariableVcpkgCurlOptConnectTimeout);
+        if (auto* ct = connect_timeout.get())
+        {
+            vcpkg_curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, *ct);
+        }
     }
 }
 
@@ -155,6 +197,14 @@ namespace vcpkg
         easy_handles.resize(urls.size());
 
         CurlMultiHandle multi_handle;
+        {
+            static const Optional<long> max_host_connections =
+                get_curl_env_long(EnvironmentVariableVcpkgCurlMultiOptMaxHostConnections);
+            if (auto* mhc = max_host_connections.get())
+            {
+                vcpkg_curl_multi_setopt(multi_handle.get(), CURLMOPT_MAX_HOST_CONNECTIONS, *mhc);
+            }
+        }
         for (size_t request_index = 0; request_index < urls.size(); ++request_index)
         {
             const auto& url = urls[request_index];

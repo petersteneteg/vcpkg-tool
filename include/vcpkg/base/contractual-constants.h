@@ -529,6 +529,10 @@ namespace vcpkg
     inline constexpr StringLiteral EnvironmentVariableVSCmdSkipSendTelemetry = "VSCMD_SKIP_SENDTELEMETRY";
     inline constexpr StringLiteral EnvironmentVariableVcpkgBinarySources = "VCPKG_BINARY_SOURCES";
     inline constexpr StringLiteral EnvironmentVariableVcpkgCommand = "VCPKG_COMMAND";
+    inline constexpr StringLiteral EnvironmentVariableVcpkgCurlMultiOptMaxHostConnections =
+        "VCPKG_CURLMOPT_MAX_HOST_CONNECTIONS";
+    inline constexpr StringLiteral EnvironmentVariableVcpkgCurlOptConnectTimeout = "VCPKG_CURLOPT_CONNECTTIMEOUT";
+    inline constexpr StringLiteral EnvironmentVariableVcpkgCurlOptTimeout = "VCPKG_CURLOPT_TIMEOUT";
     inline constexpr StringLiteral EnvironmentVariableVcpkgDefaultBinaryCache = "VCPKG_DEFAULT_BINARY_CACHE";
     inline constexpr StringLiteral EnvironmentVariableVcpkgDefaultHostTriplet = "VCPKG_DEFAULT_HOST_TRIPLET";
     inline constexpr StringLiteral EnvironmentVariableVcpkgDefaultTriplet = "VCPKG_DEFAULT_TRIPLET";
