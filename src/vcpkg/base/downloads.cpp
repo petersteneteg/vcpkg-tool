@@ -33,7 +33,7 @@ namespace
         long parsed = 0;
         try
         {
-            parsed = std::stol(*val);
+            parsed = std::stol(val.value_or_exit(VCPKG_LINE_INFO));
         }
         catch (const std::exception&)
         {
@@ -202,7 +202,9 @@ namespace vcpkg
                 get_curl_env_long(EnvironmentVariableVcpkgCurlMultiOptMaxHostConnections);
             if (auto* mhc = max_host_connections.get())
             {
-                vcpkg_curl_multi_setopt(multi_handle.get(), CURLMOPT_MAX_HOST_CONNECTIONS, *mhc);
+                vcpkg_curl_multi_setopt(multi_handle.get(),
+                                        static_cast<CURLMoption>(7) /* CURLMOPT_MAX_HOST_CONNECTIONS */,
+                                        *mhc);
             }
         }
         for (size_t request_index = 0; request_index < urls.size(); ++request_index)
