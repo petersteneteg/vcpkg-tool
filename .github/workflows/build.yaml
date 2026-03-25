@@ -86,3 +86,11 @@ jobs:
           ${{ github.workspace }}/azure-pipelines/end-to-end-tests.ps1 -RunArtifactsTests
         env:
           VCPKG_ROOT: ${{ github.workspace }}/vcpkg-root
+      - name: Upload vcpkg binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: vcpkg-${{ matrix.preset }}
+          path: |
+            out/build/${{ matrix.preset }}/vcpkg
+            out/build/${{ matrix.preset }}/vcpkg.exe
+          if-no-files-found: warn
