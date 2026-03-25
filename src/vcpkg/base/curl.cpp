@@ -17,6 +17,7 @@ decltype(&curl_multi_cleanup) vcpkg_curl_multi_cleanup;
 decltype(&curl_multi_info_read) vcpkg_curl_multi_info_read;
 decltype(&curl_multi_init) vcpkg_curl_multi_init;
 decltype(&curl_multi_remove_handle) vcpkg_curl_multi_remove_handle;
+decltype(&curl_multi_setopt) vcpkg_curl_multi_setopt;
 decltype(&curl_multi_strerror) vcpkg_curl_multi_strerror;
 decltype(&curl_multi_perform) vcpkg_curl_multi_perform;
 decltype(&curl_multi_wait) vcpkg_curl_multi_poll; // or _wait, if _poll is not present
@@ -75,6 +76,7 @@ void vcpkg_curl_global_init(long flags)
     load_symbol(vcpkg_curl_multi_info_read, handle, "curl_multi_info_read");
     load_symbol(vcpkg_curl_multi_init, handle, "curl_multi_init");
     load_symbol(vcpkg_curl_multi_remove_handle, handle, "curl_multi_remove_handle");
+    load_symbol(vcpkg_curl_multi_setopt, handle, "curl_multi_setopt");
     load_symbol(vcpkg_curl_multi_strerror, handle, "curl_multi_strerror");
     load_symbol(vcpkg_curl_multi_perform, handle, "curl_multi_perform");
     // try to load curl_multi_poll first, fall back to curl_multi_wait

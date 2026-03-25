@@ -684,6 +684,8 @@
   "EnvStrFailedToExtract": "could not expand the environment string:",
   "EnvVarMustBeAbsolutePath": "{env_var} ({path}) was not an absolute path",
   "_EnvVarMustBeAbsolutePath.comment": "An example of {path} is /foo/bar. An example of {env_var} is VCPKG_DEFAULT_TRIPLET.",
+  "EnvVarMustBeNonNegativeInteger": "{env_var} must be a non-negative integer",
+  "_EnvVarMustBeNonNegativeInteger.comment": "env_var is the name of an environment variable An example of {env_var} is VCPKG_DEFAULT_TRIPLET.",
   "ErrorDetectingCompilerInfo": "while detecting compiler information:\nThe log file content at \"{path}\" is:",
   "_ErrorDetectingCompilerInfo.comment": "An example of {path} is /foo/bar.",
   "ErrorIndividualPackagesUnsupported": "In manifest mode, `vcpkg install` does not support individual package arguments.\nTo install additional packages, edit vcpkg.json and then run `vcpkg install` without any package arguments.",

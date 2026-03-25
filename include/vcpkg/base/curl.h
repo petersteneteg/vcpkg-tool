@@ -31,6 +31,7 @@ extern decltype(&curl_multi_cleanup) vcpkg_curl_multi_cleanup;
 extern decltype(&curl_multi_info_read) vcpkg_curl_multi_info_read;
 extern decltype(&curl_multi_init) vcpkg_curl_multi_init;
 extern decltype(&curl_multi_remove_handle) vcpkg_curl_multi_remove_handle;
+extern decltype(&curl_multi_setopt) vcpkg_curl_multi_setopt;
 extern decltype(&curl_multi_strerror) vcpkg_curl_multi_strerror;
 extern decltype(&curl_multi_perform) vcpkg_curl_multi_perform;
 extern decltype(&curl_multi_wait) vcpkg_curl_multi_poll; // or _wait, if _poll is not present
@@ -55,6 +56,7 @@ extern decltype(&curl_version) vcpkg_curl_version;
     curl_multi_info_read(multi_handle, messages_in_queue)
 #define vcpkg_curl_multi_init() curl_multi_init()
 #define vcpkg_curl_multi_remove_handle(multi_handle, easy_handle) curl_multi_remove_handle(multi_handle, easy_handle)
+#define vcpkg_curl_multi_setopt(multi_handle, option, parameter) curl_multi_setopt(multi_handle, option, parameter)
 #define vcpkg_curl_multi_strerror(code) curl_multi_strerror(code)
 #define vcpkg_curl_multi_poll(multi_handle, extra_fds, extra_nfds, timeout_ms, numfds)                                 \
     curl_multi_poll(multi_handle, extra_fds, extra_nfds, timeout_ms, numfds)

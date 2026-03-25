@@ -1153,6 +1153,10 @@ DECLARE_MESSAGE(EnvInvalidMaxConcurrency,
 DECLARE_MESSAGE(EnvStrFailedToExtract, (), "", "could not expand the environment string:")
 DECLARE_MESSAGE(EnvPlatformNotSupported, (), "", "Build environment commands are not supported on this platform")
 DECLARE_MESSAGE(EnvVarMustBeAbsolutePath, (msg::path, msg::env_var), "", "{env_var} ({path}) was not an absolute path")
+DECLARE_MESSAGE(EnvVarMustBeNonNegativeInteger,
+                (msg::env_var),
+                "env_var is the name of an environment variable",
+                "{env_var} must be a non-negative integer")
 DECLARE_MESSAGE(ErrorDetectingCompilerInfo,
                 (msg::path),
                 "",
