@@ -65,15 +65,13 @@ namespace
         vcpkg_curl_easy_setopt(
             curl, static_cast<CURLoption>(229) /* CURLOPT_HEADEROPT */, (1L << 0) /* CURLHEADER_SEPARATE */);
 
-        static const Optional<long> timeout =
-            get_curl_env_long(EnvironmentVariableVcpkgCurlOptTimeout);
+        static const Optional<long> timeout = get_curl_env_long(EnvironmentVariableVcpkgCurlOptTimeout);
         if (auto* t = timeout.get())
         {
             vcpkg_curl_easy_setopt(curl, CURLOPT_TIMEOUT, *t);
         }
 
-        static const Optional<long> connect_timeout =
-            get_curl_env_long(EnvironmentVariableVcpkgCurlOptConnectTimeout);
+        static const Optional<long> connect_timeout = get_curl_env_long(EnvironmentVariableVcpkgCurlOptConnectTimeout);
         if (auto* ct = connect_timeout.get())
         {
             vcpkg_curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, *ct);
@@ -202,9 +200,8 @@ namespace vcpkg
                 get_curl_env_long(EnvironmentVariableVcpkgCurlMultiOptMaxHostConnections);
             if (auto* mhc = max_host_connections.get())
             {
-                vcpkg_curl_multi_setopt(multi_handle.get(),
-                                        static_cast<CURLMoption>(7) /* CURLMOPT_MAX_HOST_CONNECTIONS */,
-                                        *mhc);
+                vcpkg_curl_multi_setopt(
+                    multi_handle.get(), static_cast<CURLMoption>(7) /* CURLMOPT_MAX_HOST_CONNECTIONS */, *mhc);
             }
         }
         for (size_t request_index = 0; request_index < urls.size(); ++request_index)
